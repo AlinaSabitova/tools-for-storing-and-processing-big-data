@@ -77,3 +77,62 @@ def measure_time(func, *args, **kwargs):
     end_time = time.time()
     return result, end_time - start_time
 ```
+### Шаг 3. Генерация данных
+Генерация данных о логах:
+```
+np.random.seed(42)
+ 
+# Параметры 
+n_logs = 100000  # 100,000 записей
+
+print(f"Генерация {n_logs:,} записей логов...")
+ 
+# Генерация данных логов
+logs_data = []
+start_date = datetime(2024, 1, 1)
+ 
+# Уровни логирования
+log_levels = ['INFO', 'ERROR', 'WARNING', 'DEBUG']
+ 
+for i in range(n_logs):
+    # Случайная дата в пределах года
+    days_offset = np.random.randint(0, 365)
+    timestamp = start_date + timedelta(days=days_offset)
+    
+    logs_data.append({
+        'log_id': i + 1,
+        'timestamp': timestamp,
+        'log_level': np.random.choice(log_levels),
+        'message': f'Log entry number {i + 1}'
+    })
+ 
+# Создание DataFrame
+logs_df = pd.DataFrame(logs_data)
+ 
+print(f"Создано {len(logs_df):,} записей логов")
+ 
+# Вывод первых записей
+print("\nПример данных:")
+print(logs_df.head())
+```
+Результат выполнения:
+
+
+Сохранение данных в csv-файлы:
+```
+logs_df.to_csv('log.csv', index=False)
+
+print("✅ Данные сохранены в CSV файл:")
+print("- log.csv")
+
+# Анализ данных
+print(f"\n📊 Анализ данных:")
+
+print(f"📈 Распределение по уровням логирования:")
+print(logs_df['log_level'].value_counts())
+
+# Количество логов в день
+avg_logs_per_day = len(logs_df) / logs_df['timestamp'].dt.date.nunique()
+print(f"📊 Среднее количество логов в день: {avg_logs_per_day:.1f}")
+```
+Результат выполнения:
