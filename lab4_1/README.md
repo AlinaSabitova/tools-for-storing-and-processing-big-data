@@ -193,7 +193,7 @@ else:
 ```
 Результат выполнения:
 
-   <img width="800" height="300" alt="image" src="images/Снимок%20экрана%202025-10-19%20181159.png" />
+   <img width="800" height="300" alt="image" src="images/Снимок%20экрана%202025-10-19%20181904.png" />
 
 #### Выполнение запроса SELECT * FROM logs ORDER BY timestamp DESC LIMIT 1000.
 ```
@@ -240,5 +240,5 @@ results, query_time = execute_logs_sorting()
 ```
 Результат выполнения:
 
-   <img width="800" height="420" alt="image" src="images/Снимок%20экрана%202025-10-19%20181159.png" />
+   <img width="800" height="420" alt="image" src="images/Снимок%20экрана%202025-10-19%20182038.png" />
 
