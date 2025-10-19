@@ -52,3 +52,32 @@ warnings.filterwarnings('ignore')
 plt.style.use('seaborn-v0_8')
 sns.set_palette("husl")
 ```
+### Шаг 2. Создание функций для проверки подключения к базам данных
+```
+def check_mongo_connection(client):
+    """Проверка подключения к MongoDB"""
+    try:
+        client.server_info()
+        print("✅ Успешное подключение к MongoDB")
+        return True
+    except Exception as e:
+        print(f"❌ Ошибка подключения к MongoDB: {e}")
+        return False
+
+def check_postgres_connection(conn_params):
+    """Проверка подключения к PostgreSQL"""
+    try:
+        conn = psycopg2.connect(**conn_params)
+        print("✅ Успешное подключение к PostgreSQL")
+        return conn
+    except Exception as e:
+        print(f"❌ Ошибка подключения к PostgreSQL: {e}")
+        return None
+
+def measure_time(func, *args, **kwargs):
+    """Измерение времени выполнения функции"""
+    start_time = time.time()
+    result = func(*args, **kwargs)
+    end_time = time.time()
+    return result, end_time - start_time
+```
