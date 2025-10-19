@@ -16,4 +16,4 @@
 
 2. Запуск всех сервисов:
 
-   <img width="990" height="192" alt="image" src="https://github.com/user-attachments/assets/3c319ae0-5386-4d14-b0c0-da17c2e58127" />
+   <img width="880" height="180" alt="image" src="https://github.com/user-attachments/assets/3c319ae0-5386-4d14-b0c0-da17c2e58127" />
