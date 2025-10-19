@@ -28,7 +28,8 @@
 !pip install pandas numpy pymongo psycopg2-binary sqlalchemy matplotlib seaborn
 
 Результат выполнения:
-   <img width="680" height="380" alt="image" src="images/Снимок%20экрана%202025-10-19%20172632.png" />
+
+   <img width="660" height="400" alt="image" src="images/Снимок%20экрана%202025-10-19%20172632.png" />
 
 import pandas as pd
 import numpy as np
