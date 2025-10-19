@@ -12,7 +12,7 @@
 ## Подготовка окружения
 1. Загрузка файла docker-compose.yml:
    
-   <img width="700" height="420" alt="image" src="https://github.com/user-attachments/assets/3a2b9269-49cc-4a94-8cbe-9bab4e7cc788" />
+   <img width="700" height="420" alt="image" src="images/Снимок%20экрана%202025-10-19%20151628.png" />
 
 2. Запуск всех сервисов:
 
