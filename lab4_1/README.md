@@ -11,4 +11,4 @@
 
 ## Подготовка окружения
 1. Загрузка файла docker-compose.yml
-   <img width="1000" height="680" alt="image" src="https://github.com/user-attachments/assets/3a2b9269-49cc-4a94-8cbe-9bab4e7cc788" />
+   <img width="800" height="420" alt="image" src="https://github.com/user-attachments/assets/3a2b9269-49cc-4a94-8cbe-9bab4e7cc788" />
