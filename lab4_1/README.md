@@ -25,6 +25,7 @@
 
 ### Шаг 1. Установка и импорт необходимых библиотек
 
+Установка библиотек:
 ```
 !pip install pandas numpy pymongo psycopg2-binary sqlalchemy matplotlib seaborn
 ```
@@ -33,6 +34,7 @@
 
    <img width="660" height="400" alt="image" src="images/Снимок%20экрана%202025-10-19%20172632.png" />
 
+Импорт библиотек:
 ```
 import pandas as pd
 import numpy as np
