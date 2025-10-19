@@ -242,3 +242,228 @@ results, query_time = execute_logs_sorting()
 
    <img width="800" height="420" alt="image" src="images/Снимок%20экрана%202025-10-19%20182038.png" />
 
+### Шаг 4. Реализация в MongoDB
+#### Подключение к MongoDB и загрузка данных:
+```
+try:
+    # Попробуем подключиться к MongoDB через имя сервиса (для Docker)
+    mongo_client = MongoClient('mongodb://mongouser:mongopass@mongodb:27017/')
+    if check_mongo_connection(mongo_client):
+        print("✅ Подключение через Docker сервис 'mongodb'")
+    else:
+        raise Exception("Не удалось подключиться через Docker сервис")
+except:
+    try:
+        # Если не работает через Docker, попробуем localhost
+        mongo_client = MongoClient('mongodb://mongouser:mongopass@localhost:27017/')
+        if check_mongo_connection(mongo_client):
+            print("✅ Подключение через localhost")
+        else:
+            raise Exception("Не удалось подключиться через localhost")
+    except:
+        print("❌ Не удалось подключиться к MongoDB")
+        print("Проверьте, что MongoDB запущен: docker compose ps")
+        mongo_client = None
+
+if mongo_client:
+    mongo_db = mongo_client['studmongo']
+    
+    # Очистка существующих коллекций
+    mongo_db.logs.drop()
+    
+    # Загрузка данных в MongoDB
+    print("📥 Загрузка данных в MongoDB...")
+    
+    # Загрузка данных
+    logs_collection = mongo_db['logs']
+    logs_records = logs_df.to_dict('records')
+    logs_collection.insert_many(logs_records)
+    print(f"✅ Загружено {len(logs_records):,} логов")
+
+else:
+    print("❌ Пропуск операций с MongoDB из-за ошибки подключения")
+```
+Результат выполнения:
+
+   <img width="800" height="420" alt="image" src="images/Снимок%20экрана%202025-10-19%20182929.png" />
+
+#### Выполнение запроса find().sort("timestamp", -1).limit(1000)
+```
+def execute_mongodb_sorting():
+    """Выполнение запроса сортировки логов"""
+    
+    start_time = time.time()
+    
+    try:
+        # Проверяем, что подключение к MongoDB активно
+        if not mongo_client:
+            print("❌ Нет подключения к MongoDB")
+            return [], time.time() - start_time
+            
+        mongo_db = mongo_client['studmongo']
+        logs_collection = mongo_db['logs']
+        
+        # Выполняем запрос: find().sort("timestamp", -1).limit(1000)
+        results = list(logs_collection.find()
+                      .sort("timestamp", -1)
+                      .limit(1000))
+        
+        execution_time = time.time() - start_time
+        
+        # Вывод результатов
+        print(f"✅ Запрос выполнен за {execution_time:.4f} секунд")
+        print(f"📊 Получено {len(results)} документов")
+        
+        # Выводим первые 10 документов для примера
+        print("\nПервые 10 документов:")
+        print("log_id | timestamp           | log_level | message")
+        print("-" * 60)
+        for doc in results[:10]:
+            print(f"{doc['log_id']:6} | {doc['timestamp']} | {doc['log_level']:8} | {doc['message']}")
+                
+        return results, execution_time
+            
+    except Exception as e:
+        execution_time = time.time() - start_time
+        print(f"❌ Ошибка в MongoDB запросе: {e}")
+        return [], execution_time
+ 
+print(f"\n Выполнение запроса сортировки логов в MongoDB")
+ 
+mongodb_results, mongodb_time = execute_mongodb_sorting()
+```
+Результат выполнения:
+
+   <img width="800" height="420" alt="image" src="images/Снимок%20экрана%202025-10-19%20182938.png" />
+
+### Шаг 5. Сравнение производительности операций сортировки
+#### Сравнение производительности без индексов
+```
+print("📊 Сравнение производительности операций сортировки")
+ 
+# Создание таблицы сравнения
+table1 = pd.DataFrame({
+    'PostgreSQL': [f"{query_time:.4f} сек"],
+    'MongoDB': [f"{mongodb_time:.4f} сек"]
+}, index=['Время выполнения запроса'])
+ 
+print("\n Время выполнения запроса (без индексов)")
+print(table1)
+ 
+# График
+plt.figure(figsize=(10, 5))
+plt.subplot(1, 2, 1)
+dbs = ['PostgreSQL', 'MongoDB']
+times = [query_time, mongodb_time]
+colors = ['#1f77b4', '#ff7f0e']
+ 
+bars = plt.bar(dbs, times, color=colors, alpha=0.7)
+plt.title('Время выполнения запроса\n(без индексов)', fontsize=14, fontweight='bold')
+plt.ylabel('Время (секунды)')
+plt.grid(axis='y', alpha=0.3)
+ 
+# Добавляем значения на столбцы
+for bar in bars:
+    height = bar.get_height()
+    plt.text(bar.get_x() + bar.get_width()/2., height,
+             f'{height:.4f}с',
+             ha='center', va='bottom')
+ 
+plt.tight_layout()
+plt.show()
+
+# Анализ результатов
+print("\n📈 Анализ результатов:")
+print(f"• Разница в производительности: {max(query_time, mongodb_time) / min(query_time, mongodb_time):.2f} сек")
+print(f"• Быстрее: {'PostgreSQL' if query_time < mongodb_time else 'MongoDB'}")
+```
+Результат выполнения:
+
+   <img width="1000" height="800" alt="image" src="images/Снимок%20экрана%202025-10-19%20183712.png" />
+
+#### Добавление индексов и повторное сравнение производительности
+```
+print("\n📌 Создание индексов в PostgreSQL")
+pg_conn = check_postgres_connection(pg_conn_params)
+if pg_conn:
+    try:
+        with pg_conn.cursor() as cur:
+            cur.execute("CREATE INDEX IF NOT EXISTS idx_logs_timestamp ON logs(timestamp)")
+            cur.execute("CREATE INDEX IF NOT EXISTS idx_logs_timestamp_desc ON logs(timestamp DESC)")
+        pg_conn.commit()
+        print("✅ Индексы созданы в PostgreSQL")
+    except Exception as e:
+        print(f"❌ Ошибка создания индексов в PostgreSQL: {e}")
+    finally:
+        pg_conn.close()
+ 
+# Создание индексов в MongoDB
+print("📌 Создание индексов в MongoDB")
+try:
+    if mongo_client:
+        mongo_db = mongo_client['studmongo']
+        mongo_db.logs.create_index([("timestamp", -1)])
+        print("✅ Индекс создан в MongoDB")
+except Exception as e:
+    print(f"❌ Ошибка создания индекса в MongoDB: {e}")
+ 
+# Повторное тестирование производительности с индексами
+print("\n🔍 Тестирование производительности с индексами")
+ 
+# PostgreSQL с индексами
+print("\n📊 PostgreSQL с индексами:")
+pg_results_indexed, pg_time_indexed = execute_logs_sorting()
+
+# MongoDB с индексами  
+print("\n📊 MongoDB с индексами:")
+mongo_results_indexed, mongo_time_indexed = execute_mongodb_sorting()
+ 
+# Сравнение с индексами и без
+table2_data = {
+    'PostgreSQL': [f"{query_time:.4f} сек", f"{pg_time_indexed:.4f} сек"],
+    'MongoDB': [f"{mongodb_time:.4f} сек", f"{mongo_time_indexed:.4f} сек"]
+}
+table2 = pd.DataFrame(table2_data, index=['Без индексов', 'С индексами'])
+ 
+print("\n Сравнение производительности")
+print(table2)
+ 
+# График сравнения с индексами и без
+plt.figure(figsize=(15, 6))
+plt.subplot(1, 2, 1)
+x = np.arange(2)
+width = 0.35
+gap = 0.05
+
+colors_no_index = ['#ff6b6b', '#ff6b6b']  
+colors_with_index = ['#51cf66', '#51cf66'] 
+
+bars1 = plt.bar(x - width/2 - gap/2, [query_time, mongodb_time], width, 
+                label='Без индексов', color=colors_no_index, alpha=0.8)
+
+bars2 = plt.bar(x + width/2 + gap/2, [pg_time_indexed, mongo_time_indexed], width, 
+                label='С индексами', color=colors_with_index, alpha=0.8)
+
+plt.xlabel('База данных')
+plt.ylabel('Время (секунды)')
+plt.title('Сравнение производительности', fontsize=14, fontweight='bold')
+plt.xticks(x, ['PostgreSQL', 'MongoDB'])
+plt.legend()
+plt.grid(axis='y', alpha=0.3)
+ 
+for bars in [bars1, bars2]:
+    for bar in bars:
+        height = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2., height,
+                 f'{height:.4f}с', ha='center', va='bottom', fontsize=8)
+ 
+plt.tight_layout()
+plt.show()
+```
+Результат выполнения:
+
+   <img width="800" height="1000" alt="image" src="images/Снимок%20экрана%202025-10-19%20183726.png" />
+
+   <img width="800" height="400" alt="image" src="images/Снимок%20экрана%202025-10-19%20183736.png" />
+   
+### Выводы
