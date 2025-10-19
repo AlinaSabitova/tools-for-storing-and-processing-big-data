@@ -379,7 +379,7 @@ print(f"• Быстрее: {'PostgreSQL' if query_time < mongodb_time else 'Mon
 ```
 Результат выполнения:
 
-   <img width="1000" height="800" alt="image" src="images/Снимок%20экрана%202025-10-19%20183712.png" />
+   <img width="800" height="600" alt="image" src="images/Снимок%20экрана%202025-10-19%20183712.png" />
 
 #### Добавление индексов и повторное сравнение производительности
 ```
@@ -464,6 +464,6 @@ plt.show()
 
    <img width="800" height="1000" alt="image" src="images/Снимок%20экрана%202025-10-19%20183726.png" />
 
-   <img width="800" height="400" alt="image" src="images/Снимок%20экрана%202025-10-19%20183736.png" />
+   <img width="700" height="420" alt="image" src="images/Снимок%20экрана%202025-10-19%20183736.png" />
    
 ### Выводы
