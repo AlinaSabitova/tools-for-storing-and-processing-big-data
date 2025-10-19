@@ -22,7 +22,7 @@
 
 ## Шаги решения индивидуальных заданий
 ### Шаг 1. Установка и импорт необходимых библиотек
-Установка библиотек:
+#### Установка библиотек:
 ```
 !pip install pandas numpy pymongo psycopg2-binary sqlalchemy matplotlib seaborn
 ```
@@ -30,7 +30,7 @@
 
    <img width="660" height="400" alt="image" src="images/Снимок%20экрана%202025-10-19%20172632.png" />
 
-Импорт библиотек:
+#### Импорт библиотек:
 ```
 import pandas as pd
 import numpy as np
@@ -78,7 +78,7 @@ def measure_time(func, *args, **kwargs):
     return result, end_time - start_time
 ```
 ### Шаг 3. Генерация данных
-Генерация данных о логах:
+#### Генерация данных о логах:
 ```
 np.random.seed(42)
  
@@ -119,7 +119,7 @@ print(logs_df.head())
 
    <img width="800" height="420" alt="image" src="images/Снимок%20экрана%202025-10-19%20181146.png" />
 
-Сохранение данных в csv-файлы:
+#### Сохранение данных в csv-файлы:
 ```
 logs_df.to_csv('log.csv', index=False)
 
@@ -139,3 +139,106 @@ print(f"📊 Среднее количество логов в день: {avg_lo
 Результат выполнения:
 
    <img width="800" height="320" alt="image" src="images/Снимок%20экрана%202025-10-19%20181159.png" />
+
+### Шаг 4. Реализация в PostgreSQL
+#### Подключение к PostgreSQL и загрузка данных:
+```
+pg_conn_params = {
+    "dbname": "studpg",
+    "user": "postgres",
+    "password": "changeme",
+    "host": "postgresql",  # Имя сервиса в docker-compose
+    "port": "5432"
+}
+
+pg_conn = check_postgres_connection(pg_conn_params)
+if pg_conn:
+    try:
+        # Создание таблиц
+        with pg_conn.cursor() as cur:
+            # Удаление существующих таблиц
+            cur.execute("DROP TABLE IF EXISTS logs CASCADE")
+            
+            # Создание таблицы 
+            cur.execute("""
+                CREATE TABLE logs (
+                    log_id INTEGER PRIMARY KEY,
+                    timestamp TIMESTAMP,
+                    log_level VARCHAR(10),
+                    message TEXT
+                )
+            """)
+        
+        print("✅ Созданы таблицы")
+        
+        # Загрузка данных
+        print("📥 Загрузка данных в PostgreSQL...")
+        
+        # Загрузка логов
+        with pg_conn.cursor() as cur:
+            for _, row in logs_df.iterrows():
+                cur.execute("""
+                    INSERT INTO logs (log_id, timestamp, log_level, message)
+                    VALUES (%s, %s, %s, %s)
+                """, (row['log_id'], row['timestamp'], row['log_level'], row['message']))
+                pg_conn.commit()
+        print(f"✅ Загружено {len(logs_df):,} логов")
+
+    except Exception as e:
+        print(f"❌ Ошибка при работе с PostgreSQL: {e}")
+    finally:
+        pg_conn.close()
+else:
+    print("❌ Пропуск операций с PostgreSQL из-за ошибки подключения")
+```
+Результат выполнения:
+
+   <img width="800" height="300" alt="image" src="images/Снимок%20экрана%202025-10-19%20181159.png" />
+
+#### Выполнение запроса SELECT * FROM logs ORDER BY timestamp DESC LIMIT 1000.
+```
+def execute_logs_sorting():
+    """Выполнение запроса сортировки логов"""
+    
+    start_time = time.time()
+    
+    pg_conn = psycopg2.connect(**pg_conn_params)
+    
+    try:
+        with pg_conn.cursor() as cur:
+            query = """
+            SELECT * FROM logs 
+            ORDER BY timestamp DESC 
+            LIMIT 1000
+            """
+            
+            cur.execute(query)
+            results = cur.fetchall()
+            execution_time = time.time() - start_time
+            
+            # Вывод результатов
+            print(f"✅ Запрос выполнен за {execution_time:.4f} секунд")
+            print(f"📊 Получено {len(results)} записей")
+            
+            print("\nПервые 10 записей:")
+            print("log_id | timestamp           | log_level | message")
+            print("-" * 60)
+            for row in results[:10]:
+                log_id, timestamp, log_level, message = row
+                print(f"{log_id:6} | {timestamp} | {log_level:8} | {message}")
+                
+            return results, execution_time
+            
+    except Exception as e:
+        execution_time = time.time() - start_time
+        print(f"❌ Ошибка в PostgreSQL запросе: {e}")
+        return [], execution_time
+    finally:
+        pg_conn.close()
+print("🔍 Выполнение запроса сортировки логов")
+results, query_time = execute_logs_sorting()
+```
+Результат выполнения:
+
+   <img width="800" height="420" alt="image" src="images/Снимок%20экрана%202025-10-19%20181159.png" />
+
