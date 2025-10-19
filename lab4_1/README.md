@@ -10,6 +10,10 @@
 3. Сравнить производительность операций сортировки большого объема данных. Проанализировать, как индексирование поля сортировки влияет на результат в обеих СУБД.
 
 ## Подготовка окружения
-1. Загрузка файла docker-compose.yml
+1. Загрузка файла docker-compose.yml:
    
    <img width="700" height="420" alt="image" src="https://github.com/user-attachments/assets/3a2b9269-49cc-4a94-8cbe-9bab4e7cc788" />
+
+2. Запуск всех сервисов:
+
+   <img width="990" height="192" alt="image" src="https://github.com/user-attachments/assets/3c319ae0-5386-4d14-b0c0-da17c2e58127" />
