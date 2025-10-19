@@ -25,12 +25,15 @@
 
 ### Шаг 1. Установка и импорт необходимых библиотек
 
+```
 !pip install pandas numpy pymongo psycopg2-binary sqlalchemy matplotlib seaborn
+```
 
 Результат выполнения:
 
    <img width="660" height="400" alt="image" src="images/Снимок%20экрана%202025-10-19%20172632.png" />
 
+```
 import pandas as pd
 import numpy as np
 from pymongo import MongoClient
@@ -46,3 +49,4 @@ warnings.filterwarnings('ignore')
 # Настройка для отображения графиков
 plt.style.use('seaborn-v0_8')
 sns.set_palette("husl")
+```
