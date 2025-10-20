@@ -389,7 +389,6 @@ if pg_conn:
     try:
         with pg_conn.cursor() as cur:
             cur.execute("CREATE INDEX IF NOT EXISTS idx_logs_timestamp ON logs(timestamp)")
-            cur.execute("CREATE INDEX IF NOT EXISTS idx_logs_timestamp_desc ON logs(timestamp DESC)")
         pg_conn.commit()
         print("✅ Индексы созданы в PostgreSQL")
     except Exception as e:
@@ -499,3 +498,4 @@ print(f"  • PostgreSQL эффективнее для сложных реляц
 ```
 Результат выполнения:
 
+   <img width="800" height="400" alt="image" src="images/Снимок%20экрана%202025-10-20%20214219.png" />
