@@ -462,7 +462,7 @@ plt.show()
 
    <img width="800" height="1000" alt="image" src="images/Снимок%20экрана%202025-10-28%20205312.png" />
 
-   <img width="700" height="450" alt="image" src="images/Снимок%20экрана%202025-10-28%20205325.png" />
+   <img width="700" height="500" alt="image" src="images/Снимок%20экрана%202025-10-28%20205325.png" />
 
 # Выводы
 ```
