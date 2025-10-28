@@ -246,7 +246,6 @@ results, query_time = execute_logs_sorting()
 #### Подключение к MongoDB и загрузка данных:
 ```
 try:
-    # Попробуем подключиться к MongoDB через имя сервиса (для Docker)
     mongo_client = MongoClient('mongodb://mongouser:mongopass@mongodb:27017/')
     if check_mongo_connection(mongo_client):
         print("✅ Подключение через Docker сервис 'mongodb'")
