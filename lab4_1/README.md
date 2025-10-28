@@ -373,16 +373,16 @@ plt.show()
 
 # Анализ результатов
 print("\n📈 Анализ результатов:")
-print(f"• Разница в производительности: {max(query_time, mongodb_time) / min(query_time, mongodb_time):.2f} сек")
+print(f"• Разница в производительности: {max(query_time, mongodb_time) / min(query_time, mongodb_time):.2f}x")
 print(f"• Быстрее: {'PostgreSQL' if query_time < mongodb_time else 'MongoDB'}")
 ```
 Результат выполнения:
 
-   <img width="800" height="600" alt="image" src="images/Снимок%20экрана%202025-10-19%20183712.png" />
+   <img width="800" height="600" alt="image" src="images/Снимок%20экрана%202025-10-28%20204745.png" />
 
 #### Добавление индексов и повторное сравнение производительности
 ```
-print("\n📌 Создание индексов в PostgreSQL")
+print("\n🔍 Создание индексов в PostgreSQL")
 pg_conn = check_postgres_connection(pg_conn_params)
 if pg_conn:
     try:
@@ -396,7 +396,7 @@ if pg_conn:
         pg_conn.close()
  
 # Создание индексов в MongoDB
-print("📌 Создание индексов в MongoDB")
+print("🔍 Создание индексов в MongoDB")
 try:
     if mongo_client:
         mongo_db = mongo_client['studmongo']
@@ -460,9 +460,9 @@ plt.show()
 ```
 Результат выполнения:
 
-   <img width="800" height="1000" alt="image" src="images/Снимок%20экрана%202025-10-19%20183726.png" />
+   <img width="800" height="1000" alt="image" src="images/Снимок%20экрана%202025-10-28%20205312.png" />
 
-   <img width="700" height="420" alt="image" src="images/Снимок%20экрана%202025-10-19%20183736.png" />
+   <img width="700" height="420" alt="image" src="images/Снимок%20экрана%202025-10-28%20205325.png" />
 
 # Выводы
 ```
@@ -497,4 +497,4 @@ print(f"  • PostgreSQL эффективнее для сложных реляц
 ```
 Результат выполнения:
 
-   <img width="800" height="400" alt="image" src="images/Снимок%20экрана%202025-10-20%20214219.png" />
+   <img width="800" height="400" alt="image" src="images/Снимок%20экрана%202025-10-28%20205301.png" />
