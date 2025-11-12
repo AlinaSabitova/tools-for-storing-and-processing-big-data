@@ -426,35 +426,34 @@ table2 = pd.DataFrame(table2_data, index=['Без индексов', 'С инд�
 print("\n Сравнение производительности")
 print(table2)
  
-# График сравнения с индексами и без
+# График сравнения с индексами и без с использованием Seaborn
 plt.figure(figsize=(15, 6))
+
+# Подготовка данных для Seaborn
+data = []
+data.append({'Database': 'PostgreSQL', 'Indexes': 'Без индексов', 'Time': query_time})
+data.append({'Database': 'MongoDB', 'Indexes': 'Без индексов', 'Time': mongodb_time})
+data.append({'Database': 'PostgreSQL', 'Indexes': 'С индексами', 'Time': pg_time_indexed})
+data.append({'Database': 'MongoDB', 'Indexes': 'С индексами', 'Time': mongo_time_indexed})
+
+df = pd.DataFrame(data)
+
+# Создание группированного барплота
 plt.subplot(1, 2, 1)
-x = np.arange(2)
-width = 0.35
-gap = 0.05
-
-colors_no_index = ['#ff6b6b', '#ff6b6b']  
-colors_with_index = ['#51cf66', '#51cf66'] 
-
-bars1 = plt.bar(x - width/2 - gap/2, [query_time, mongodb_time], width, 
-                label='Без индексов', color=colors_no_index, alpha=0.8)
-
-bars2 = plt.bar(x + width/2 + gap/2, [pg_time_indexed, mongo_time_indexed], width, 
-                label='С индексами', color=colors_with_index, alpha=0.8)
+ax = sns.barplot(data=df, x='Database', y='Time', hue='Indexes', 
+                 palette={'Без индексов': '#ff6b6b', 'С индексами': '#51cf66'},
+                 alpha=0.8, gap=0.1)
 
 plt.xlabel('База данных')
 plt.ylabel('Время (секунды)')
 plt.title('Сравнение производительности', fontsize=14, fontweight='bold')
-plt.xticks(x, ['PostgreSQL', 'MongoDB'])
-plt.legend()
+plt.legend(title='Тип запроса')
 plt.grid(axis='y', alpha=0.3)
- 
-for bars in [bars1, bars2]:
-    for bar in bars:
-        height = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width()/2., height,
-                 f'{height:.4f}с', ha='center', va='bottom', fontsize=8)
- 
+
+# Добавляем значения на столбцы
+for container in ax.containers:
+    ax.bar_label(container, fmt='%.4fс', fontsize=8, padding=2)
+
 plt.tight_layout()
 plt.show()
 ```
