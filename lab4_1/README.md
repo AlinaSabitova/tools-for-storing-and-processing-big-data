@@ -459,9 +459,9 @@ plt.show()
 ```
 Результат выполнения:
 
-   <img width="800" height="1000" alt="image" src="images/Снимок%20экрана%202025-10-28%20205312.png" />
+   <img width="726" height="744" alt="image" src="https://github.com/user-attachments/assets/8c9d8d30-04e6-4eb5-9f0f-97b15ca59b24" />
 
-   <img width="700" height="500" alt="image" src="images/Снимок%20экрана%202025-10-28%20205325.png" />
+   <img width="795" height="651" alt="image" src="https://github.com/user-attachments/assets/c453d5b0-9a17-4ab5-881a-d96b94bb3ee7" />
 
 # Выводы
 ```
@@ -496,4 +496,5 @@ print(f"  • PostgreSQL эффективнее для сложных реляц
 ```
 Результат выполнения:
 
-   <img width="800" height="400" alt="image" src="images/Снимок%20экрана%202025-10-28%20205301.png" />
+   <img width="806" height="248" alt="image" src="https://github.com/user-attachments/assets/b22b72ce-22aa-40a7-bd0a-632aeddf1e8e" />
+
