@@ -288,52 +288,53 @@ else:
 
 #### Выполнение запроса find().sort("timestamp", -1).limit(1000)
 ```
-def execute_mongodb_sorting():
-    """Выполнение запроса сортировки логов"""
-    
-    start_time = time.time()
-    
-    try:
-        # Проверяем, что подключение к MongoDB активно
-        if not mongo_client:
-            print("❌ Нет подключения к MongoDB")
-            return [], time.time() - start_time
-            
-        mongo_db = mongo_client['studmongo']
-        logs_collection = mongo_db['logs']
-        
-        # Выполняем запрос: find().sort("timestamp", -1).limit(1000)
-        results = list(logs_collection.find()
-                      .sort("timestamp", -1)
-                      .limit(1000))
-        
-        execution_time = time.time() - start_time
-        
-        # Вывод результатов
-        print(f"✅ Запрос выполнен за {execution_time:.4f} секунд")
-        print(f"📊 Получено {len(results)} документов")
-        
-        # Выводим первые 10 документов для примера
-        print("\nПервые 10 документов:")
-        print("log_id | timestamp           | log_level | message")
-        print("-" * 60)
-        for doc in results[:10]:
-            print(f"{doc['log_id']:6} | {doc['timestamp']} | {doc['log_level']:8} | {doc['message']}")
-                
-        return results, execution_time
-            
-    except Exception as e:
-        execution_time = time.time() - start_time
-        print(f"❌ Ошибка в MongoDB запросе: {e}")
-        return [], execution_time
- 
-print(f"\n Выполнение запроса сортировки логов в MongoDB")
- 
-mongodb_results, mongodb_time = execute_mongodb_sorting()
+print("📊 Сравнение производительности операций сортировки")
+
+# Создание таблицы сравнения
+table1 = pd.DataFrame({
+    'PostgreSQL': [f"{query_time:.4f} сек"],
+    'MongoDB': [f"{mongodb_time:.4f} сек"]
+}, index=['Время выполнения запроса'])
+
+print("\n Время выполнения запроса (без индексов)")
+print(table1)
+
+# График с Seaborn
+plt.figure(figsize=(10, 5))
+
+# Подготовка данных для Seaborn
+data = pd.DataFrame({
+    'Database': ['PostgreSQL', 'MongoDB'],
+    'Time': [query_time, mongodb_time]
+})
+
+# Создание барплота с Seaborn
+plt.subplot(1, 2, 1)
+ax = sns.barplot(data=data, x='Database', y='Time', 
+                 palette=['#1f77b4', '#ff7f0e'], 
+                 alpha=0.7,
+                 width=0.6)  # Настройка ширины столбцов
+
+plt.title('Время выполнения запроса\n(без индексов)', fontsize=14, fontweight='bold')
+plt.ylabel('Время (секунды)')
+plt.grid(axis='y', alpha=0.3)
+
+# Добавляем значения на столбцы
+for container in ax.containers:
+    ax.bar_label(container, fmt='%.4f с', padding=3, fontsize=10)
+
+plt.tight_layout()
+plt.show()
+
+# Анализ результатов
+print("\n📈 Анализ результатов:")
+print(f"• Разница в производительности: {max(query_time, mongodb_time) / min(query_time, mongodb_time):.2f}x")
+print(f"• Быстрее: {'PostgreSQL' if query_time < mongodb_time else 'MongoDB'}")
 ```
 Результат выполнения:
 
-   <img width="800" height="420" alt="image" src="images/Снимок%20экрана%202025-10-19%20182938.png" />
+   <img width="780" height="657" alt="image" src="https://github.com/user-attachments/assets/a384f635-7d64-4eb4-a5a6-ad99e2ad243b" />
+
 
 ### Шаг 5. Сравнение производительности операций сортировки
 #### Сравнение производительности без индексов
