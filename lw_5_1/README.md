@@ -103,7 +103,7 @@ hdfs dfsadmin -report
 <img width="974" height="294" alt="image" src="https://github.com/user-attachments/assets/7c2a19ad-6a79-4f6c-82f2-3a2c8d9d4a08" />
 
 ## Шаг3. Анализ в Pandas
-1. Заранее подготовим [скрипт](/analyze_pandas.py)
+1. Заранее подготовим [скрипт](/lw_5_1/scripts/analyze_pandas.py)
 
 2. Запустим анализ:
 ```
@@ -122,7 +122,7 @@ cat results/salary_by_experience.csv
 <img width="974" height="143" alt="image" src="https://github.com/user-attachments/assets/215e29e4-9c7a-4ff7-bf7a-62e1bc1c67d7" />
 
 ## Шаг3. Анализ в Spark
-1. Заранее подготовим [скрипт](/analyze_spark.py)
+1. Заранее подготовим [скрипт](/lw_5_1/scripts/analyze_spark.py)
 
 2. Запустим его:
 ```
