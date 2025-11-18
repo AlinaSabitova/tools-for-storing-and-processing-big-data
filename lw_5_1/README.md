@@ -21,11 +21,11 @@ ls -la scripts/
 ls -la notebooks/
 ```
 
-<img width="874" height="235" alt="image" src="https://github.com/user-attachments/assets/8f442725-6e09-4d2a-928a-25e02a96fa7b" />
+<img width="874" height="215" alt="image" src="https://github.com/user-attachments/assets/8f442725-6e09-4d2a-928a-25e02a96fa7b" />
 
-<img width="874" height="149" alt="image" src="https://github.com/user-attachments/assets/231c66ac-2423-49c1-861e-29440ef5317d" />
+<img width="874" height="129" alt="image" src="https://github.com/user-attachments/assets/231c66ac-2423-49c1-861e-29440ef5317d" />
 
-<img width="874" height="149" alt="image" src="https://github.com/user-attachments/assets/f5a6df0b-2bb3-4d7f-bc06-3590b5925b2d" />
+<img width="874" height="129" alt="image" src="https://github.com/user-attachments/assets/f5a6df0b-2bb3-4d7f-bc06-3590b5925b2d" />
 
 ### 3. Запустим докер:
 
