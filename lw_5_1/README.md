@@ -43,7 +43,7 @@ docker compose up -d
 docker compose logs -f hadoop
 ```
 
-<img width="974" height="312" alt="image" src="https://github.com/user-attachments/assets/06707d57-bc95-44e7-bcc4-9254ad4dd06a" />
+<img width="874" height="292" alt="image" src="https://github.com/user-attachments/assets/06707d57-bc95-44e7-bcc4-9254ad4dd06a" />
 
 ### 5. Откроем терминал внутри контейнера:
 
@@ -51,11 +51,11 @@ docker compose logs -f hadoop
 docker compose exec hadoop bash
 ```
 
-<img width="974" height="84" alt="image" src="https://github.com/user-attachments/assets/9bece2e3-8652-42e1-8372-d1f4218337d5" />
+<img width="874" height="64" alt="image" src="https://github.com/user-attachments/assets/9bece2e3-8652-42e1-8372-d1f4218337d5" />
 
 ### 6. Проверим компоненты:
 
-<img width="959" height="278" alt="image" src="https://github.com/user-attachments/assets/a9cc938c-1fbd-4e3c-a6ae-2cd23b9fb9c5" />
+<img width="859" height="258" alt="image" src="https://github.com/user-attachments/assets/a9cc938c-1fbd-4e3c-a6ae-2cd23b9fb9c5" />
 
 ## Шаг 2. Работа с HDFS
 ### 1. Создадим директории и проверяем, что они были созданы:
