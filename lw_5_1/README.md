@@ -4,8 +4,8 @@
 ## Индивидуальные задания
 ### Задание №12. Зарплаты Data Scientist
 Средняя зарплата по уровню опыта
-## Шаг1. Подготовка окружения
-1. Клонируем репозиторий:
+## Шаг 1. Подготовка окружения
+### 1. Клонируем репозиторий:
 
 ```
 git clone <repository_url>
@@ -150,7 +150,9 @@ hdfs dfs -cat /user/hadoop/output/magnitude_by_type/part-00000 | head -20
 Видим, что файлы действительно были сохранены
 
 ## Шаг4. Анализ в Jupyter Notebook
+
 1. Запустим Jupyter Notebook
+   
 ```
 bash scripts/start_jupyter.sh
 ```
@@ -498,3 +500,9 @@ print(f"График успешно перезаписан в HDFS по пути
 ```
 
 <img width="974" height="595" alt="image" src="https://github.com/user-attachments/assets/6f0967dc-0168-46c2-abed-f30f05647274" />
+
+## Шаг 5. Простые скрипты на bash
+
+Напишим простые запросы для подсчета строк в файле, выводу последних десяти строк и подсчета уникальных уровней опыта:
+
+<img width="955" height="332" alt="Снимок экрана 2025-11-18 133556" src="https://github.com/user-attachments/assets/ea2fd189-3c85-44f4-bf2b-43daa51a62ff" />
