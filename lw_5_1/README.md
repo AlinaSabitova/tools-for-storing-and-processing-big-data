@@ -51,7 +51,7 @@ docker compose logs -f hadoop
 docker compose exec hadoop bash
 ```
 
-<img width="874" height="64" alt="image" src="https://github.com/user-attachments/assets/9bece2e3-8652-42e1-8372-d1f4218337d5" />
+<img width="874" height="74" alt="image" src="https://github.com/user-attachments/assets/9bece2e3-8652-42e1-8372-d1f4218337d5" />
 
 ### 6. Проверим компоненты:
 
