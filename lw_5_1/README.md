@@ -11,7 +11,7 @@
 git clone <repository_url>
 ```
 
-<img width="974" height="159" alt="image" src="https://github.com/user-attachments/assets/4190ba66-4459-4f37-b8ef-ec0e6f5bf7a9" />
+<img width="874" height="129" alt="image" src="https://github.com/user-attachments/assets/4190ba66-4459-4f37-b8ef-ec0e6f5bf7a9" />
 
 ### 2. Проверим, что все файлы загрузились:
 
