@@ -5,7 +5,7 @@
 ### Задание №12. Зарплаты Data Scientist
 Средняя зарплата по уровню опыта
 ## Шаг 1. Подготовка окружения
-#### 1. Клонируем репозиторий:
+### 1. Клонируем репозиторий:
 
 ```
 git clone <repository_url>
@@ -13,7 +13,8 @@ git clone <repository_url>
 
 <img width="974" height="159" alt="image" src="https://github.com/user-attachments/assets/4190ba66-4459-4f37-b8ef-ec0e6f5bf7a9" />
 
-2. Проверим, что все файлы загрузились:
+### 2. Проверим, что все файлы загрузились:
+
 ```
 ls -la hadoop/
 ls -la scripts/
@@ -26,7 +27,8 @@ ls -la notebooks/
 
 <img width="974" height="149" alt="image" src="https://github.com/user-attachments/assets/f5a6df0b-2bb3-4d7f-bc06-3590b5925b2d" />
 
-3. Запустим докер:
+### 3. Запустим докер:
+
 ```
 docker compose up -d
 ```
@@ -35,26 +37,29 @@ docker compose up -d
 
 <img width="974" height="298" alt="image" src="https://github.com/user-attachments/assets/08e8808d-4711-483d-9f9b-bc209bbef9e5" />
 
-4. Посмотрим логи:
+### 4. Посмотрим логи:
+
 ```
 docker compose logs -f hadoop
 ```
 
 <img width="974" height="312" alt="image" src="https://github.com/user-attachments/assets/06707d57-bc95-44e7-bcc4-9254ad4dd06a" />
 
-5. Откроем терминал внутри контейнера:
+### 5. Откроем терминал внутри контейнера:
+
 ```
 docker compose exec hadoop bash
 ```
 
 <img width="974" height="84" alt="image" src="https://github.com/user-attachments/assets/9bece2e3-8652-42e1-8372-d1f4218337d5" />
 
-6. Проверим компоненты:
+### 6. Проверим компоненты:
 
 <img width="959" height="278" alt="image" src="https://github.com/user-attachments/assets/a9cc938c-1fbd-4e3c-a6ae-2cd23b9fb9c5" />
 
-## Шаг2. Работа с HDFS
-1. Создаем директории и проверяем, что они были созданы:
+## Шаг 2. Работа с HDFS
+### 1. Создадим директории и проверяем, что они были созданы:
+
 ```
 # Создать директории для входных и выходных данных
 hdfs dfs -mkdir -p /user/hadoop/input
@@ -66,11 +71,11 @@ hdfs dfs -ls /user/hadoop/
 
 <img width="974" height="171" alt="image" src="https://github.com/user-attachments/assets/e39823f6-586c-4137-b103-56cc9adda57a" />
 
-3. Загрузим данные вручную ввиду большого объема файла:
+### 2. Загрузим данные вручную ввиду большого объема файла:
 
 <img width="974" height="354" alt="image" src="https://github.com/user-attachments/assets/d1cc71fb-2075-4280-972e-b90e14ee7c25" />
 
-4. Проверим загрузку и посмотрим размер файла
+### 3. Проверим загрузку и посмотрим размер файла
 
 ```
 # Проверить загрузку
@@ -82,14 +87,14 @@ hdfs dfs -du -h /user/hadoop/input/
 
 <img width="974" height="112" alt="image" src="https://github.com/user-attachments/assets/01a5f478-83c2-4ee1-a6e3-b6f9097604d6" />
 
-5. Просмотрим первые строки файла
+### 4. Просмотрим первые строки файла
 ```
 hdfs dfs -cat /user/hadoop/input/database.csv | head -20
 ```
 
 <img width="974" height="323" alt="image" src="https://github.com/user-attachments/assets/6a40ba56-675b-4744-9589-dbfdd1d08fe8" />
 
-6. Посмотрим статистику в HDFS
+### 5. Посмотрим статистику в HDFS
 ```
 hdfs dfsadmin -report
 ```
@@ -98,14 +103,14 @@ hdfs dfsadmin -report
 
 <img width="974" height="402" alt="image" src="https://github.com/user-attachments/assets/ab40b1bc-85cf-4d46-b102-9a9921155f1e" />
 
-7. Откроем yarn:
+### 6. Откроем yarn:
 
 <img width="974" height="294" alt="image" src="https://github.com/user-attachments/assets/7c2a19ad-6a79-4f6c-82f2-3a2c8d9d4a08" />
 
-## Шаг3. Анализ в Pandas
-1. Заранее подготовим [скрипт](/lw_5_1/scripts/analyze_pandas.py)
+## Шаг 3. Анализ в Pandas
+### 1. Заранее подготовим [скрипт](/lw_5_1/scripts/analyze_pandas.py)
 
-2. Запустим анализ:
+### 2. Запустим анализ:
 ```
 python3 analyze_pandas.py
 ```
@@ -114,17 +119,18 @@ python3 analyze_pandas.py
 
 <img width="974" height="131" alt="image" src="https://github.com/user-attachments/assets/cd47c9d4-6413-4a01-8632-820eef5d5e59" />
 
-3. Проверим, что файл с анализом сохранился локально:
+### 3. Проверим, что файл с анализом сохранился локально:
+
 ```
 cat results/salary_by_experience.csv
 ```
 
 <img width="974" height="143" alt="image" src="https://github.com/user-attachments/assets/215e29e4-9c7a-4ff7-bf7a-62e1bc1c67d7" />
 
-## Шаг3. Анализ в Spark
-1. Заранее подготовим [скрипт](/lw_5_1/scripts/analyze_spark.py)
+## Шаг 4. Анализ в Spark
+### 1. Заранее подготовим [скрипт](/lw_5_1/scripts/analyze_spark.py)
 
-2. Запустим его:
+### 2. Запустим его:
 ```
 python3 analyze_spark.py
 ```
@@ -133,7 +139,7 @@ python3 analyze_spark.py
 
 <img width="974" height="183" alt="image" src="https://github.com/user-attachments/assets/259d7b73-5de4-4989-9390-3b0618b4e572" />
 
-3. Проверим, что результаты сохранились в HDFS
+### 3. Проверим, что результаты сохранились в HDFS
 ```
 hdfs dfs -ls /user/hadoop/output
 hdfs dfs -cat /user/hadoop/output/magnitude_by_type/part-00000 | head -20
@@ -149,9 +155,8 @@ hdfs dfs -cat /user/hadoop/output/magnitude_by_type/part-00000 | head -20
 
 Видим, что файлы действительно были сохранены
 
-## Шаг4. Анализ в Jupyter Notebook
-
-1. Запустим Jupyter Notebook
+## Шаг 5. Анализ в Jupyter Notebook
+### 1. Запустим Jupyter Notebook
    
 ```
 bash scripts/start_jupyter.sh
@@ -159,9 +164,7 @@ bash scripts/start_jupyter.sh
 
 <img width="974" height="232" alt="image" src="https://github.com/user-attachments/assets/2303d8c0-cf52-4a61-bd77-3dcce600d70a" />
 
-2. Загрузим данные из HDFS
-3. 
-Подключимся:
+### 2. Подключимся:
 ```
 pip install pandas numpy matplotlib seaborn
 ```
@@ -260,7 +263,7 @@ print(f"Уровни опыта: {df_clean['experience_level'].unique()}")
 
 <img width="974" height="52" alt="image" src="https://github.com/user-attachments/assets/12ade80b-fbc1-4e9a-b8e7-73e3465c7af0" />
 
-2. Анализ зарплат по уровню опыта
+### 3. Анализ зарплат по уровню опыта
 
 ```
 # Группировка по уровню опыта и вычисление средней зарплаты
@@ -285,7 +288,7 @@ print(f"Количество специалистов данного уровн�
 
 <img width="974" height="69" alt="image" src="https://github.com/user-attachments/assets/8c0beca8-a744-434c-9606-a9bdcceb5c2d" />
 
-3. Визуализация
+### 4. Визуализация
    
 Установим HDFS:
 
@@ -501,7 +504,7 @@ print(f"График успешно перезаписан в HDFS по пути
 
 <img width="974" height="595" alt="image" src="https://github.com/user-attachments/assets/6f0967dc-0168-46c2-abed-f30f05647274" />
 
-## Шаг 5. Простые скрипты на bash
+## Шаг 6. Простые скрипты на bash
 
 Напишим простые запросы для подсчета строк в файле, выводу последних десяти строк и подсчета уникальных уровней опыта:
 
