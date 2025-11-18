@@ -69,7 +69,7 @@ hdfs dfs -mkdir -p /user/hadoop/output
 hdfs dfs -ls /user/hadoop/
 ```
 
-<img width="974" height="171" alt="image" src="https://github.com/user-attachments/assets/e39823f6-586c-4137-b103-56cc9adda57a" />
+<img width="874" height="151" alt="image" src="https://github.com/user-attachments/assets/e39823f6-586c-4137-b103-56cc9adda57a" />
 
 ### 2. Загрузим данные вручную ввиду большого объема файла:
 
