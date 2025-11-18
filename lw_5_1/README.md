@@ -33,9 +33,9 @@ ls -la notebooks/
 docker compose up -d
 ```
 
-<img width="974" height="323" alt="image" src="https://github.com/user-attachments/assets/dba17e51-ddea-4797-8c1d-fc1f52c74282" />
+<img width="874" height="303" alt="image" src="https://github.com/user-attachments/assets/dba17e51-ddea-4797-8c1d-fc1f52c74282" />
 
-<img width="974" height="298" alt="image" src="https://github.com/user-attachments/assets/08e8808d-4711-483d-9f9b-bc209bbef9e5" />
+<img width="874" height="278" alt="image" src="https://github.com/user-attachments/assets/08e8808d-4711-483d-9f9b-bc209bbef9e5" />
 
 ### 4. Посмотрим логи:
 
