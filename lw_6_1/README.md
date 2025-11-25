@@ -716,6 +716,48 @@ avg_duration_by_gender.show()
 <img width="1256" height="477" alt="image" src="https://github.com/user-attachments/assets/1f159888-dd0e-46dd-894d-fe26b642c68b" />
 
 Нарисуем график:
+```
+import seaborn as sns
+
+# Устанавливаем стиль seaborn
+sns.set_style("whitegrid")
+
+duration_pandas = avg_duration_by_gender.toPandas()
+
+# Создание графика
+ax = sns.barplot(x='gender', y='avg_duration_minutes', data=duration_pandas,
+                 palette=['lightpink', 'lightblue'],
+                 edgecolor='black',
+                 linewidth=1)
+
+# Настройка внешнего вида
+min_val = duration_pandas['avg_duration_minutes'].min()
+max_val = duration_pandas['avg_duration_minutes'].max()
+ax.set_ylim(min_val - 5, max_val + 2)
+
+ax.set_title('Средняя продолжительность тренировок по полу', fontsize=14, pad=20)
+ax.set_ylabel('Продолжительность (минуты)', fontsize=12)
+ax.set_xlabel('Пол', fontsize=12)
+
+# Добавление значений на столбцы
+for i, v in enumerate(duration_pandas['avg_duration_minutes']):
+    ax.text(i, v + 0.3, f'{v} мин', ha='center', va='bottom', fontsize=12, fontweight='bold')
+
+# Улучшение сетки
+ax.grid(axis='y', alpha=0.3)
+
+# Убираем рамки
+sns.despine(left=True, bottom=True)
+
+# Переименовываем подписи на оси X
+gender_labels = {'female': 'Женщины', 'male': 'Мужчины'}
+ax.set_xticklabels([gender_labels.get(x.get_text(), x.get_text()) for x in ax.get_xticklabels()])
+
+# Показываем график
+plt.show()
+```
+
+<img width="670" height="501" alt="image" src="https://github.com/user-attachments/assets/9ec5c717-f5b3-43f0-9210-10a568926079" />
 
 ### 5.Предложите задачу бинарной классификации в Spark MLlib: предсказать, будет ли тренировка пользователя дольше медианной продолжительности для данного вида спорта. Какие признаки (пол пользователя, время старта, день недели - если бы был) могут быть использованы?
 
