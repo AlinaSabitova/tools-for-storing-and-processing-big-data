@@ -16,6 +16,6 @@
 
 ## Лабораторная работа №6.1
 
-[Отчет]()
+[Отчет](/lw_6_1/README.md)
 
 [Файл](/advanced_pyspark_for_exploratory_data_analysis_student_(1).ipynb)
